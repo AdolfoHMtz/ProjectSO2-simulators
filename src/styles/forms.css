@@ -1,0 +1,211 @@
+/* ============================
+   INPUT FIELDS
+============================ */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.9rem;
+}
+
+.field span {
+  color: #c7cee9;
+}
+
+.field input,
+.field select {
+  padding: 0.35rem 0.5rem;
+  border-radius: 0.6rem;
+  border: 1px solid #262b43;
+  background: #050816;
+  color: #f6f7fb;
+  font-size: 1rem;
+}
+
+.field input:focus,
+.field select:focus {
+  outline: none;
+  border-color: #3c4fe0;
+}
+
+/* ============================
+   RESPONSIVE - FORMS
+============================ */
+
+/* Móviles (≤ 640px) */
+@media (max-width: 640px) {
+  .field {
+    font-size: 0.95rem;
+    gap: 0.3rem;
+  }
+
+  .field span {
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .field input,
+  .field select {
+    padding: 0.6rem 0.7rem;
+    font-size: 1rem;
+    border-radius: 0.7rem;
+  }
+}
+
+/* ============================
+   FIELD ROW 
+============================ */
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.field-inline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.field-inline span {
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.field-inline input,
+.field-inline select {
+  width: 100%;
+  min-width: 0;
+}
+
+/* ============================
+   CONTROL ACCORDION
+============================ */
+
+/* Desktop/Tablets: NO mostrar acordeones, mostrar contenido normal */
+.control-accordion {
+  display: block;
+}
+
+.accordion-header {
+  display: none;
+}
+
+.accordion-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.accordion-content.is-closed {
+  display: flex; /* En desktop siempre visible */
+}
+
+.accordion-content.is-open {
+  display: flex; /* En desktop siempre visible */
+}
+
+/* Móviles (≤ 640px): activar acordeón */
+@media (max-width: 640px) {
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.7rem;
+  }
+
+  .control-accordion {
+    background: linear-gradient(135deg, #15192e 0%, #0a0d1c 100%);
+    border: 1.5px solid #262b47;
+    border-radius: 0.8rem;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+  }
+
+  .accordion-header {
+    display: flex;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 1rem 1.2rem;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .accordion-header:hover {
+    background: rgba(60, 79, 224, 0.08);
+  }
+
+  .accordion-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #7c8cff;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+  }
+
+  .accordion-summary {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #8a92b8;
+    margin-left: 0.5rem;
+  }
+
+  /* En móvil, controlar visibilidad con clases */
+  .accordion-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    padding: 0 1.2rem 1.2rem 1.2rem;
+  }
+
+  .accordion-content.is-closed {
+    display: none;
+  }
+
+  .accordion-content.is-open {
+    display: flex;
+    animation: accordionSlide 0.3s ease;
+  }
+
+  @keyframes accordionSlide {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* Móviles pequeños (≤ 380px) */
+@media (max-width: 380px) {
+  .field input,
+  .field select {
+    padding: 0.35rem 0.45rem;
+    font-size: 0.9rem;
+  }
+
+  .accordion-header {
+    padding: 0.9rem 1rem;
+  }
+
+  .accordion-content {
+    padding: 0 1rem 1rem 1rem;
+  }
+
+  .accordion-title {
+    font-size: 0.95rem;
+  }
+
+  .accordion-summary {
+    font-size: 0.8rem;
+  }
+}

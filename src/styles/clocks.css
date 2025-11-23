@@ -1,0 +1,389 @@
+/* ============================
+   ESTILOS DE RELOJES DIGITALES
+   Simulador de Sincronización de Relojes
+============================ */
+
+/**
+ * ESTRUCTURA DE RELOJES:
+ * 
+ * .clock-grid: Contenedor grid que organiza los relojes
+ * .clock-node: Cada reloj individual con su información
+ *   - .clock-title: Encabezado con nombre y badge de rol
+ *   - .clock-display: Pantalla LED con la hora
+ *   - .clock-info: Información de offset y RTT
+ *   - .clock-status: Estado de sincronización
+ * 
+ * ROLES:
+ * - server: Servidor de referencia (Cristian)
+ * - coordinator: Coordinador (Berkeley)
+ * - client: Nodo cliente normal
+ * 
+ * ESTADOS DE SINCRONIZACIÓN:
+ * - synced: Offset < 1000ms (verde)
+ * - partial: Offset 1000-3000ms (amarillo)
+ * - desynced: Offset > 3000ms (rojo)
+ */
+
+/* ========================================
+   GRID DE RELOJES
+======================================== */
+
+/**
+ * Layout responsivo que se ajusta automáticamente
+ * - Web: 3 relojes por línea (fixed)
+ * - Móvil: 2 relojes por línea (fixed)
+ */
+.clock-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+  padding: 0.5rem;
+  max-width: 100%;
+}
+
+/* ========================================
+   NODO DE RELOJ - ESTRUCTURA BASE
+======================================== */
+
+/**
+ * Contenedor principal de cada reloj
+ * - Fondo oscuro con gradiente
+ * - Borde sólido con sombra
+ * - Transiciones suaves para estados
+ */
+.clock-node {
+  background: linear-gradient(135deg, #0a0f1e 0%, #050816 100%);
+  border-radius: 0.8rem;
+  padding: 0.7rem 0.8rem;
+  border: 2px solid #191d30;
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.35);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+/* ========================================
+   ROLES ESPECIALES
+======================================== */
+
+/**
+ * Servidor (Cristian)
+ * - Color morado (#8c4dff)
+ * - Resplandor púrpura
+ * - Representa el tiempo de referencia
+ */
+.clock-node.clock-server {
+  border-color: #8c4dff;
+  background: linear-gradient(135deg, #1a1040 0%, #0a0520 100%);
+  box-shadow: 0 0 20px rgba(140, 77, 255, 0.4);
+}
+
+/**
+ * Coordinador (Berkeley)
+ * - Color azul (#3c4fe0)
+ * - Resplandor azul
+ * - Calcula promedio y envía ajustes
+ */
+.clock-node.clock-coordinator {
+  border-color: #3c4fe0;
+  background: linear-gradient(135deg, #0f1a3a 0%, #050f28 100%);
+  box-shadow: 0 0 20px rgba(60, 79, 224, 0.4);
+}
+
+/* ========================================
+   ENCABEZADO DEL RELOJ
+======================================== */
+
+/**
+ * Título con nombre del nodo y badge de rol
+ * - Flex con espacio entre elementos
+ * - Fuente bold para visibilidad
+ */
+.clock-title {
+  font-weight: 700;
+  font-size: 0.8rem;
+  margin-bottom: 0.3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ========================================
+   BADGES DE ROLES
+======================================== */
+
+/**
+ * Insignia que indica el rol del nodo
+ * - SERVER: Servidor de tiempo (morado)
+ * - COORD: Coordinador (azul)
+ * - CLIENT: Cliente normal (gris)
+ */
+.clock-role-badge {
+  font-size: 0.6rem;
+  padding: 0.1rem 0.35rem;
+  border-radius: 999px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Badge de servidor (morado) */
+.clock-role-badge.server {
+  background: rgba(140, 77, 255, 0.2);
+  color: #b794f6;
+  border: 1px solid #8c4dff;
+}
+
+/* Badge de coordinador (azul) */
+.clock-role-badge.coordinator {
+  background: rgba(60, 79, 224, 0.2);
+  color: #7c8cff;
+  border: 1px solid #3c4fe0;
+}
+
+/* Badge de cliente (gris) */
+.clock-role-badge.client {
+  background: rgba(100, 120, 180, 0.15);
+  color: #9aa3d5;
+  border: 1px solid #3a4563;
+}
+
+/* ========================================
+   DISPLAY LED
+======================================== */
+
+/**
+ * Pantalla tipo LED con efecto de profundidad
+ * - Fondo negro con sombra interna
+ * - Simula pantalla de reloj digital
+ */
+.clock-display {
+  background: #000;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.7rem;
+  margin: 0.4rem 0;
+  border: 1px solid #1a1d2e;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+/**
+ * Hora mostrada con efecto LED
+ * - Fuente monoespaciada (Share Tech Mono)
+ * - Text-shadow para efecto de resplandor
+ * - Color cambia según estado de sincronización
+ */
+.clock-time {
+  font-family: "Share Tech Mono", "JetBrains Mono", ui-monospace, monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-align: center;
+  margin: 0;
+  text-shadow: 0 0 10px currentColor;
+  transition: color 0.3s ease;
+}
+
+/* ========================================
+   ESTADOS DE SINCRONIZACIÓN
+======================================== */
+
+/**
+ * Verde: Sincronizado (offset < 1000ms)
+ * - Color: #00ff88
+ * - Resplandor verde intenso
+ */
+.clock-node.synced .clock-time {
+  color: #00ff88;
+  text-shadow: 0 0 15px #00ff88, 0 0 25px #00ff8844;
+}
+
+/**
+ * Rojo: Muy desincronizado (offset > 3000ms)
+ * - Color: #ff4444
+ * - Resplandor rojo de alerta
+ */
+.clock-node.desynced .clock-time {
+  color: #ff4444;
+  text-shadow: 0 0 15px #ff4444, 0 0 25px #ff444444;
+}
+
+/**
+ * Amarillo: Parcialmente desincronizado (1000-3000ms)
+ * - Color: #ffaa00
+ * - Resplandor amarillo de advertencia
+ */
+.clock-node.partial .clock-time {
+  color: #ffaa00;
+  text-shadow: 0 0 15px #ffaa00, 0 0 25px #ffaa0044;
+}
+
+/* ========================================
+   INFORMACIÓN DEL RELOJ
+======================================== */
+
+/**
+ * Contenedor de información técnica
+ * - Offset actual
+ * - RTT (Round Trip Time) - solo en Cristian
+ */
+.clock-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 0.7rem;
+  margin-top: 0.3rem;
+}
+
+/**
+ * Offset: Diferencia con el tiempo real
+ * - Positivo: Reloj adelantado
+ * - Negativo: Reloj atrasado
+ */
+.clock-offset {
+  color: #9aa3d5;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+}
+
+/**
+ * RTT: Round Trip Time
+ * - Solo en algoritmo Cristian
+ * - Latencia total de ida y vuelta
+ */
+.clock-rtt {
+  color: #7c8cff;
+  font-style: italic;
+  font-size: 0.65rem;
+}
+
+/* ========================================
+   BADGE DE ESTADO
+======================================== */
+
+/**
+ * Indicador visual del estado de sincronización
+ * - Texto: ✅ Sincronizado / ⚠️ Desincronizado / ❌ Muy desincronizado
+ * - Fondo coloreado según estado
+ */
+.clock-status {
+  font-size: 0.65rem;
+  text-align: center;
+  margin-top: 0.2rem;
+  padding: 0.15rem 0.3rem;
+  border-radius: 0.3rem;
+  font-weight: 600;
+}
+
+/* Estado sincronizado (verde) */
+.clock-status.synced {
+  color: #00ff88;
+  background: rgba(0, 255, 136, 0.1);
+}
+
+/* Estado muy desincronizado (rojo) */
+.clock-status.desynced {
+  color: #ff4444;
+  background: rgba(255, 68, 68, 0.1);
+}
+
+/* Estado parcialmente desincronizado (amarillo) */
+.clock-status.partial {
+  color: #ffaa00;
+  background: rgba(255, 170, 0, 0.1);
+}
+
+/* ========================================
+   ESTADOS VISUALES ESPECIALES
+======================================== */
+
+/**
+ * Resaltado (highlight)
+ * - Usado cuando un nodo está activo en un paso
+ * - Borde azul brillante con resplandor
+ * - Escala ligeramente aumentada
+ */
+.clock-highlight {
+  border-color: #3c4fe0;
+  box-shadow: 0 0 20px rgba(60, 79, 224, 0.9);
+  transform: scale(1.02);
+}
+
+/**
+ * Fallido (failed)
+ * - Nodo caído o fuera de servicio
+ * - Opacidad reducida
+ * - Escala de grises
+ * - Borde punteado
+ */
+.clock-failed {
+  opacity: 0.3;
+  border-style: dashed;
+  filter: grayscale(1);
+}
+
+/* ========================================
+   RESPONSIVE - MÓVIL (≤ 640px)
+======================================== */
+
+/**
+ * Optimizaciones para dispositivos móviles:
+ * - Grid de 2 columnas fijas
+ * - Tamaños reducidos para mejor ajuste
+ * - Gaps y paddings más compactos
+ */
+@media (max-width: 640px) {
+  /* Grid: 2 relojes por línea */
+  .clock-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.4rem;
+    padding: 0.3rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Nodo más compacto */
+  .clock-node {
+    padding: 0.4rem 0.5rem;
+    box-sizing: border-box;
+  }
+
+  /* Título más pequeño */
+  .clock-title {
+    font-size: 0.7rem;
+    margin-bottom: 0.25rem;
+  }
+
+  /* Badge más pequeño */
+  .clock-role-badge {
+    font-size: 0.55rem;
+    padding: 0.05rem 0.25rem;
+  }
+
+  /* Display más compacto */
+  .clock-display {
+    padding: 0.4rem 0.5rem;
+    margin: 0.3rem 0;
+    border-radius: 0.4rem;
+  }
+
+  /* Hora más pequeña */
+  .clock-time {
+    font-size: 0.95rem;
+  }
+
+  /* Info más compacta */
+  .clock-info {
+    gap: 0.3rem;
+  }
+
+  /* Textos de info más pequeños */
+  .clock-offset, .clock-rtt {
+    font-size: 0.6rem;
+  }
+
+  /* Status más pequeño */
+  .clock-status {
+    font-size: 0.6rem;
+    padding: 0.15rem 0.35rem;
+    margin-top: 0.3rem;
+  }
+}

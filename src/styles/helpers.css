@@ -1,0 +1,43 @@
+/* ============================
+   HELPERS Y UTILIDADES
+============================ */
+
+/* Etiqueta de ayuda para controles */
+.control-help {
+  font-size: 0.75rem;
+  color: #9aa3d5;
+  margin-top: 0.2rem;
+  font-style: italic;
+}
+
+/* Badge de estado activo */
+.status-badge {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: rgba(60, 79, 224, 0.2);
+  color: #8c4dff;
+  border: 1px solid #3c4fe0;
+}
+
+
+
+/* ============================
+   RESPONSIVE - HELPERS
+============================ */
+
+@media (max-width: 640px) {
+  .control-help {
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+
+  .status-badge {
+    font-size: 0.85rem;
+    padding: 0.3rem 0.7rem;
+    margin-bottom: 0.5rem;
+  }
+
+}

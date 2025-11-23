@@ -1,0 +1,58 @@
+/* ============================
+   CANVAS DE SIMULACIÓN
+============================ */
+
+.canvas-area {
+  position: relative;
+  min-height: 260px;
+  border-radius: 0.8rem;
+  border: 1px dashed #2b3152;
+  padding: 0.5rem;
+  overflow: hidden;
+  background: radial-gradient(circle at top, #0b1021, #050816 65%);
+}
+
+.canvas-nodes {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 220px;
+}
+
+/* ============================
+   RESPONSIVE - CANVAS
+============================ */
+
+/* Tablets (≤ 900px) */
+@media (max-width: 900px) {
+  .canvas-area {
+    min-height: 280px;
+  }
+
+  .canvas-nodes {
+    min-height: 240px;
+  }
+}
+
+/* Móviles (≤ 640px) */
+@media (max-width: 640px) {
+  .canvas-area {
+    min-height: 320px;
+    padding: 0.6rem;
+  }
+
+  .canvas-nodes {
+    min-height: 220px;
+  }
+}
+
+/* Móviles pequeños (≤ 380px) */
+@media (max-width: 380px) {
+  .canvas-area {
+    min-height: 220px;
+  }
+
+  .canvas-nodes {
+    min-height: 180px;
+  }
+}

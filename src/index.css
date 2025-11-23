@@ -1,0 +1,16 @@
+/* ============================
+   IMPORTS DE ESTILOS MODULARES
+============================ */
+
+@import './styles/base.css';
+@import './styles/header.css';
+@import './styles/buttons.css';
+@import './styles/panels.css';
+@import './styles/forms.css';
+@import './styles/home.css';
+@import './styles/canvas.css';
+@import './styles/nodes.css';
+@import './styles/clocks.css';
+@import './styles/messages.css';
+@import './styles/logs.css';
+@import './styles/helpers.css';

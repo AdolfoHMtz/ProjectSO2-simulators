@@ -1,0 +1,157 @@
+/* ============================
+   MENSAJES Y LÍNEAS ANIMADAS
+============================ */
+
+.message-overlay {
+  position: sticky;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid #3c4fe0;
+  background: rgba(5, 8, 22, 0.95);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #c7cee9;
+  margin-bottom: 0.5rem;
+  z-index: 10;
+  width: fit-content;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.message-line {
+  position: absolute;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #3c4fe0, #8c4dff);
+  transform-origin: center center;
+  opacity: 0.95;
+  box-shadow: 0 0 10px rgba(60, 79, 224, 0.6);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.message-line::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  border-style: solid;
+  border-width: 6px 0 6px 10px;
+  border-color: transparent transparent transparent #8c4dff;
+}
+
+/* Mensaje OK (Bully) en verde */
+.message-line-ok {
+  background: linear-gradient(90deg, #1aa34a, #4fd16c);
+  box-shadow: 0 0 10px rgba(26, 163, 74, 0.7);
+}
+
+.message-line-ok::after {
+  border-color: transparent transparent transparent #4fd16c;
+}
+
+/* Mensaje Ring fase 2 (anuncio) en morado más intenso */
+.message-line-ring2 {
+  background: linear-gradient(90deg, #8c4dff, #c07dff);
+  box-shadow: 0 0 10px rgba(140, 77, 255, 0.7);
+}
+
+.message-line-ring2::after {
+  border-color: transparent transparent transparent #c07dff;
+}
+
+/* Punto que viaja por la línea */
+
+.message-dot {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #f6f7fb;
+  box-shadow: 0 0 8px rgba(246, 247, 251, 0.8);
+  animation: message-dot-move 0.9s linear infinite;
+}
+
+@keyframes message-dot-move {
+  from {
+    left: 0%;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+/* Burbuja con la lista de IDs que viajan en el Ring (fase 1) */
+.message-payload {
+  position: absolute;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  background: rgba(5, 8, 22, 0.92);
+  border: 1px solid #3c4fe0;
+  color: #c7cee9;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* ============================
+   RESPONSIVE - MESSAGES
+============================ */
+
+/* Tablets (≤ 900px) */
+@media (max-width: 900px) {
+  .message-overlay {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+  }
+
+  .message-payload {
+    font-size: 0.65rem;
+    padding: 0.15rem 0.4rem;
+  }
+}
+
+/* Móviles (≤ 640px) */
+@media (max-width: 640px) {
+  .message-overlay {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    top: 4px;
+  }
+
+  .message-line {
+    height: 1.5px;
+  }
+
+  .message-line::after {
+    border-width: 5px 0 5px 8px;
+  }
+
+  .message-dot {
+    width: 6px;
+    height: 6px;
+  }
+
+  .message-payload {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.4rem;
+  }
+}
+
+/* Móviles pequeños (≤ 380px) */
+@media (max-width: 380px) {
+  .message-overlay {
+    font-size: 0.6rem;
+    padding: 0.15rem 0.4rem;
+  }
+
+  .message-payload {
+    font-size: 0.55rem;
+    padding: 0.12rem 0.3rem;
+  }
+}

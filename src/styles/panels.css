@@ -1,0 +1,320 @@
+/* ============================
+   PANEL GENÉRICO
+============================ */
+
+.panel-container {
+  background: #070b18;
+  border-radius: 1rem;
+  padding: 1rem 1.2rem;
+  border: 1px solid #191d30;
+  box-shadow: 0 14px 26px rgba(0, 0, 0, 0.35);
+}
+
+.panel-title {
+  margin-top: 0;
+  margin-bottom: 0.8rem;
+}
+
+/* ============================
+   SIMULADORES (GRID GENERAL)
+============================ */
+.simulation-container {
+  display: grid;
+  grid-template-columns: minmax(220px, 260px) 2fr 0.8fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+/* PANEL CONTROLES */
+
+.panel-controles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  max-height: fit-content;
+}
+
+/* PANEL LOG */
+
+.panel-log {
+  height: 420px;
+  max-height: 420px;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* SIMULATION CANVAS */
+
+.simulation-canvas {
+  min-height: 420px;
+  height: 420px;
+  max-height: 420px;
+  overflow: hidden;
+}
+
+.canvas-area {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  max-width: 100%;
+  box-sizing: border-box;
+  -webkit-overflow-scrolling: touch; /* Scroll suave en iOS */
+  overscroll-behavior-y: contain; /* Evita scroll en la página cuando llegas al final */
+}
+
+/* Scrollbar personalizada para canvas-area */
+.canvas-area::-webkit-scrollbar {
+  width: 6px;
+}
+
+.canvas-area::-webkit-scrollbar-track {
+  background: rgba(25, 29, 48, 0.3);
+  border-radius: 10px;
+}
+
+.canvas-area::-webkit-scrollbar-thumb {
+  background: rgba(100, 110, 150, 0.5);
+  border-radius: 10px;
+}
+
+.canvas-area::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 110, 150, 0.7);
+}
+
+/* PLACEHOLDER DE CANVAS */
+
+.canvas-placeholder {
+  height: 100%;
+  min-height: 260px;
+  border-radius: 0.8rem;
+  border: 1px dashed #2b3152;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  text-align: center;
+  padding: 0.8rem;
+  color: #aab3da;
+}
+
+/* ============================
+   PANEL DE INSTRUCCIONES
+============================ */
+
+.instructions-box {
+  background: linear-gradient(135deg, #1a1f3a 0%, #0f1428 100%);
+  border: 2px solid #3c4fe0;
+  border-radius: 0.8rem;
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 0.2rem;
+  box-shadow: 0 0 20px rgba(60, 79, 224, 0.3);
+  overflow: hidden;
+}
+
+.instructions-header {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 1rem 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.instructions-header:hover {
+  background: rgba(60, 79, 224, 0.1);
+}
+
+.instructions-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #8c4dff;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.toggle-icon {
+  color: #3c4fe0;
+  font-size: 0.8rem;
+  transition: transform 0.3s ease;
+}
+
+.toggle-icon.open {
+  transform: rotate(180deg);
+}
+
+.instructions-list {
+  list-style: none;
+  padding: 0 1.2rem 1rem 1.2rem;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.instructions-list li {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #d4dbff;
+  padding-left: 1.2rem;
+  position: relative;
+}
+
+.instructions-list li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: #3c4fe0;
+  font-weight: bold;
+}
+
+.instructions-list li strong {
+  color: #c9d3ff;
+  font-weight: 600;
+}
+
+/* ============================
+   RESPONSIVE - PANELS
+============================ */
+
+/* Tablets grandes (≤ 1100px) */
+@media (max-width: 1100px) {
+  .simulation-container {
+    grid-template-columns: minmax(200px, 240px) 1.5fr 0.9fr;
+    gap: 0.8rem;
+  }
+
+  .panel-container {
+    padding: 0.9rem 1rem;
+  }
+}
+
+/* Tablets (≤ 900px) - Layout en 2 columnas */
+@media (max-width: 900px) {
+  .simulation-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 1rem;
+  }
+
+  .panel-controles {
+    order: 1;
+  }
+
+  .simulation-canvas {
+    order: 2;
+    min-height: 300px;
+  }
+
+  .panel-log {
+    order: 3;
+    max-height: 300px;
+  }
+}
+
+/* Móviles (≤ 640px) */
+@media (max-width: 640px) {
+  .simulation-container {
+    padding: 0;
+    gap: 0.8rem;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  .panel-container {
+    padding: 0.8rem;
+    border-radius: 0.6rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .panel-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .simulation-canvas {
+    min-height: 480px;
+    height: 480px;
+    max-height: 480px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .panel-log {
+    max-height: 300px;
+  }
+
+  .canvas-placeholder {
+    min-height: 220px;
+    padding: 1rem;
+  }
+
+  .canvas-placeholder p {
+    font-size: 1rem;
+  }
+
+  /* Instrucciones más grandes en móvil */
+  .instructions-box {
+    margin-top: 0.8rem;
+  }
+
+  .instructions-header {
+    padding: 1.1rem;
+  }
+
+  .instructions-title {
+    font-size: 1rem;
+  }
+
+  .instructions-list {
+    gap: 0.8rem;
+    padding: 0 1.1rem 1.1rem 1.1rem;
+  }
+
+  .instructions-list li {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    padding-left: 1.3rem;
+  }
+
+
+  .instructions-box {
+    margin-bottom: 0.3rem;
+  }
+}
+
+/* Móviles pequeños (≤ 380px) */
+@media (max-width: 380px) {
+  .panel-container {
+    padding: 0.7rem;
+  }
+
+  .simulation-canvas {
+    min-height: 240px;
+  }
+
+  .panel-log {
+    max-height: 220px;
+  }
+}
