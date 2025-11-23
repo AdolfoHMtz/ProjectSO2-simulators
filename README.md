@@ -8,8 +8,6 @@
 ![React Router](https://img.shields.io/badge/React_Router-6.28.0-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
 ![Netlify](https://img.shields.io/badge/Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)
 
-<div align="center">
-
 ### Proyecto Final - Sistemas Operativos II
 
 ### 🚀 [Ver Aplicación en Vivo](https://proyectoso-eq8-simuladores.netlify.app)
